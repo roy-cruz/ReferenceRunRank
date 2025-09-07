@@ -64,7 +64,8 @@ def main():
             match_runs=(endpoint == "lumisections"),
         )
 
-    omsdata.applyGoldenJSON(args.golden, keep=[args.target])
+    if args.golden:
+        omsdata.applyGoldenJSON(args.golden, keep=[args.target])
 
     if omsdata._data is None:
         raise ValueError(
