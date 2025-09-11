@@ -24,7 +24,7 @@ You can run RRR from your terminal by using the command `rrr`. The basic require
     - Example: [`configs/refrank_config_example.json`](configs/refrank_config_example.json)
 * "Golden" JSON or configuration file to generate one (Optional)
     - Can be an official, or a user defined golden JSON. There are multiple ways to generate your own Golden JSON:
-        - The argument `--golden_config` accepts a path to a configuration JSON which contains the logic to auto-generate a golden JSON when running RRR. A simple example configuration is included in [`configs/runreg_logic.json`](configs/runreg_logic.json).
+        - The argument `--golden_config` accepts a path to a configuration JSON which contains the logic to auto-generate a golden JSON when running RRR. A simple example configuration is included in [`configs/runreg_logic.json`](configs/runreg_logic.json). Note that to use this option you will need aCERN SSO client ID  and secret (instructions on how to obtain these are linked in [Relevant Documentation](#relevant-documentation)).
         - [DQM Explore](https://github.com/CMSTrackerDPG/DQMExplore) includes the command `fetch_golden` with which you can generate your own golden JSON from the command line.
         - You can use the [JSON portal](https://cmsrunregistry.web.cern.ch/json_portal) in Run Registry to create your own golden JSON.
 * Target run:
@@ -46,3 +46,9 @@ rrr --config configs/refrank_config.json --rslts_fname ./rankings/rankings_38531
 ### Notebook
 
 An example notebook is included for running the ranking algorithm and/or loading results JSON files to study the results closer. This notebook can be found in [`notebooks/RefRunRank.ipynb`](notebooks/RefRunRank.ipynb).
+
+## Relevant Documentation & Resources
+
+* [CERN SSO registration instructions](https://github.com/CMSTrackerDPG/cernrequests#for-cern-apis-using-the-new-sso)
+* [DIALS Python API repository](https://gitlab.cern.ch/cms-dqmdc/libraries/dials-py/-/tree/develop)
+* [Run Registry Python API repository](https://gitlab.cern.ch/cms-dqmdc/libraries/runregistry_api_client)
