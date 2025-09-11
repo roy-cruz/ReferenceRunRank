@@ -6,6 +6,7 @@ import runregistry
 
 EPs = set(["runs", "lumisections"])
 
+
 def main():
     parser = argparse.ArgumentParser(description="Reference run ranking")
 
@@ -19,12 +20,19 @@ def main():
     # Run Registry
     group = parser.add_mutually_exclusive_group()
     group.add_argument("--golden", type=str, default=None, help="Golden JSON path")
-    group.add_argument("--golden_config", type=str, default=None, help="Golden JSON config path")
-    parser.add_argument("--golden_config_dataset", type=str, default="/Express/Collisions2024/DQM", help="Dataset to be used when fetching golden JSON using config")
+    group.add_argument(
+        "--golden_config", type=str, default=None, help="Golden JSON config path"
+    )
+    parser.add_argument(
+        "--golden_config_dataset",
+        type=str,
+        default="/Express/Collisions2024/DQM",
+        help="Dataset to be used when fetching golden JSON using config",
+    )
     # Argument to dump generated golden JSON. SHould only be used with --golden_config. Argument is either true or false, with the default being false
-    parser.add_argument("--dump_golden", action="store_true", help="Dump generated golden JSON") 
-    
-
+    parser.add_argument(
+        "--dump_golden", action="store_true", help="Dump generated golden JSON"
+    )
 
     # Ranking options
     parser.add_argument(
@@ -83,11 +91,15 @@ def main():
     elif args.golden_config is not None:
         with open(args.golden_config) as f:
             golden_config = json.load(f)
-        print(f"Generating golden JSON using dataset:\n   Dataset:{args.golden_config_dataset}\n   Logic: {args.golden_config}")
+        print(
+            f"Generating golden JSON using dataset:\n   Dataset:{args.golden_config_dataset}\n   Logic: {args.golden_config}"
+        )
 
         rr_data = runregistry.create_json(
             json_logic=golden_config,
-            dataset_name_filter=golden_config.get("dataset", args.golden_config_dataset),
+            dataset_name_filter=golden_config.get(
+                "dataset", args.golden_config_dataset
+            ),
         )["generated_json"]
         if args.dump_golden:
             with open("generated_golden.json", "w") as gf:
@@ -134,6 +146,7 @@ def main():
         cols = list(wghts_df.columns)
         wghts_df = wghts_df[[cols[-1]] + cols[:-1]]
         wghts_df.to_json(wghts_fname, orient="records", indent=4)
+
 
 if __name__ == "__main__":
     main()
